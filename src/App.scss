@@ -1,0 +1,40 @@
+
+// Media Breakpoints
+$mbp-s:   600px;
+$mbp-m:   900px;
+$mbp-l:  1200px;
+$mbp-xl: 1800px;
+
+@mixin media-xs { // for-phone-only {
+  @media (max-width: $mbp-s - 1px) { @content; }
+}
+@mixin media-s { // for-tablet-portrait-up {
+  @media (min-width: $mbp-s)
+     and (max-width: $mbp-m - 1px) { @content; }
+}
+@mixin media-m { // for-tablet-landscape-up {
+  @media (min-width: $mbp-m)
+     and (max-width: $mbp-l - 1px) { @content; }
+}
+@mixin media-l { // for-desktop-up {
+  @media (min-width: $mbp-l)
+     and (max-width: $mbp-xl - 1px) { @content; }
+}
+@mixin media-xl { // for-big-desktop-up {
+  @media (min-width: $mbp-xl) { @content; }
+} 
+
+$m: 4;
+
+.App {
+  text-align: center;
+  @include media-xs { &::after { content: "XS(w<600px)"; }        font-size:  5px * $m; background: red; }
+  @include media-s  { &::after { content: "S(600<=w<900px)";  }   font-size:  8px * $m; background: yellow; }
+  @include media-m  { &::after { content: "M(900<=w<1200px)";  }  font-size: 10px * $m; background: pink; }
+  @include media-l  { &::after { content: "L(1200<=w<1800px)";  } font-size: 15px * $m; background: green; }
+  @include media-xl { &::after { content: "XL(>=1800px)"; }       font-size: 20px * $m; background: blue; }
+  &::before {
+    content: "SpacetimeQ ";
+  }
+}
+
