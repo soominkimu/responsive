@@ -24,15 +24,15 @@ $mbp-xl: 1800px;
   @media (min-width: $mbp-xl) { @content; }
 } 
 
-$m: 4;
+$m: 4px;
 
 .App {
   text-align: center;
-  @include media-xs { &::after { content: "XS(w<600px)"; }        font-size:  5px * $m; background: red; }
-  @include media-s  { &::after { content: "S(600<=w<900px)";  }   font-size:  8px * $m; background: yellow; }
-  @include media-m  { &::after { content: "M(900<=w<1200px)";  }  font-size: 10px * $m; background: pink; }
-  @include media-l  { &::after { content: "L(1200<=w<1800px)";  } font-size: 15px * $m; background: green; }
-  @include media-xl { &::after { content: "XL(>=1800px)"; }       font-size: 20px * $m; background: blue; }
+  @include media-xs { &::after { content: "XS(w<600px)";       } font-size:  5 * $m; background: red;    }
+  @include media-s  { &::after { content: "S(600<=w<900px)";   } font-size:  8 * $m; background: yellow; }
+  @include media-m  { &::after { content: "M(900<=w<1200px)";  } font-size: 10 * $m; background: pink;   }
+  @include media-l  { &::after { content: "L(1200<=w<1800px)"; } font-size: 15 * $m; background: green;  }
+  @include media-xl { &::after { content: "XL(>=1800px)";      } font-size: 20 * $m; background: blue;   }
   &::before {
     content: "SpacetimeQ ";
   }
