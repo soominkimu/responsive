@@ -76,3 +76,29 @@ svg {
   border: 1px dotted green;
   background: white;
 }
+
+// https://stackoverflow.com/questions/40515142/how-to-make-a-sticky-footer-in-react
+%footer-shared {
+  height: var(--ft_h);
+  padding: var(--ft_p);
+  width: 100%;
+}
+
+.footer {
+  background: purple;
+  font-size: 16px;
+  color: white;
+  //border-top: 1px solid #E7E7E7;
+  text-align: center;
+  vertical-align: middle;  // only works with line-height set to the block height
+  line-height: var(--ft_h);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  @extend %footer-shared;
+}
+
+.phantom {
+  display: block;
+  @extend %footer-shared;
+}

@@ -26,6 +26,21 @@ const getResponsiveGroup = w => {
   return (w < 1800) ? 3 : 4;
 }
 
+const footer = {
+  height: 40,
+  padding: 4
+};
+
+// Sticky Footer
+const Footer = props =>
+  <div style={{
+    '--ft_h': footer.height + 'px',
+    '--ft_p': footer.padding + 'px'
+  }}>
+    <div className="phantom" />
+    <div className="footer">{props.children}</div>
+  </div>
+
 function App() {
   const [winSize, setWinSize] = useState({
     w: window.innerWidth,
@@ -71,7 +86,7 @@ function App() {
     <div className="App"
       style={{
         width:  winSize.w - (padding + border)*2,
-        height: winSize.h - (padding + border)*2,
+        height: winSize.h - (padding + border)*2 - (footer.height + footer.padding*2),
         padding: padding + 'px',
         border: `solid ${border}px darkblue`
       }}
@@ -87,6 +102,9 @@ function App() {
         </g>
       </svg>
       <br />
+      <Footer>
+        Sticky Footer {winSize.w}x{footer.height}, {footer.padding}px padding
+      </Footer>
     </div>
   );
 }
