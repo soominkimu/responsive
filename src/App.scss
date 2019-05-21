@@ -5,6 +5,8 @@ $mbp-m:   900px;
 $mbp-l:  1200px;
 $mbp-xl: 1800px;
 
+// 'only screen' - required?
+
 @mixin media-xs { // for-phone-only {
   @media only screen
      and (max-width: $mbp-s - 1px) { @content; }
@@ -27,22 +29,47 @@ $mbp-xl: 1800px;
 @mixin media-xl { // for-big-desktop-up {
   @media only screen
      and (min-width: $mbp-xl) { @content; }
-} 
+}
 
-$m: 4px;
+/*  Failed experiment
+@mixin media-xs { // for-phone-only {
+  @media only screen
+     and ( max-width: calc(var(--bp_s) - 1px) ) { @content; }
+}
+@mixin media-s { // for-tablet-portrait-up {
+  @media only screen
+     and ( min-width: var(--bp_s) )
+     and ( max-width: calc(var(--bp_m) - 1px) ) { @content; }
+}
+@mixin media-m { // for-tablet-landscape-up {
+  @media only screen
+     and ( min-width: var(--bp_m) )
+     and ( max-width: calc(var(--bp_l) - 1px) ) { @content; }
+}
+@mixin media-l { // for-desktop-up {
+  @media only screen
+     and ( min-width: var(--bp_l) )
+     and ( max-width: calc(var(--bp_xl) - 1px) ) { @content; }
+}
+@mixin media-xl { // for-big-desktop-up {
+  @media only screen
+     and ( min-width: var(--bp_xl) ) { @content; }
+}
+*/
+
+$m: 2px;
 
 .App {
   text-align: center;
-  @include media-xs { &::after { content: "XS(w<600px)";       } font-size:  5 * $m; background: red;    }
-  @include media-s  { &::after { content: "S(600<=w<900px)";   } font-size:  8 * $m; background: yellow; }
-  @include media-m  { &::after { content: "M(900<=w<1200px)";  } font-size: 10 * $m; background: pink;   }
-  @include media-l  { &::after { content: "L(1200<=w<1800px)"; } font-size: 15 * $m; background: green;  }
-  @include media-xl { &::after { content: "XL(>=1800px)";      } font-size: 20 * $m; background: blue;   }
   &::before {
-    content: "SpacetimeQ ";
+    content: "SpacetimeQ Responsive Web Design";
   }
-  padding: 10px;
-  border: solid 4px darkblue;
+  @include media-xs { &::after { content: "CSS: XS(w<600px)";       } font-size:  5 * $m; background: red;    }
+  @include media-s  { &::after { content: "CSS: S(600<=w<900px)";   } font-size:  8 * $m; background: yellow; }
+  @include media-m  { &::after { content: "CSS: M(900<=w<1200px)";  } font-size: 10 * $m; background: pink;   }
+  @include media-l  { &::after { content: "CSS: L(1200<=w<1800px)"; } font-size: 15 * $m; background: green;  }
+  @include media-xl { &::after { content: "CSS: XL(>=1800px)";      } font-size: 20 * $m; background: blue;   }
+  //transition: all 2s;
 }
 
 svg {

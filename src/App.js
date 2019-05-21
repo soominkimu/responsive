@@ -38,35 +38,55 @@ function App() {
   });
 
   useEffect(() => {
+    /* Failed experiment: CSS var() does not work for media query.
+    const bps = [
+      {name: 's',  value: 600},
+      {name: 'm',  value: 900},
+      {name: 'l',  value: 1200},
+      {name: 'xl', value: 1800}
+    ];
+    bps.forEach( p => document.documentElement.style.setProperty('--bp_' + p.name, p.value + 'px') );
+    console.log("CSS variables set");
+    */
     window.addEventListener('resize', handleWindowResize);
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
 
-  const BPRect = props =>
-    <rect x="1" y="1" width={props.width} height={props.width * 100 / 240} fill={props.fill}
-          strokeWidth={props.isGroup ? 4 : .5} />
-
   const svgW = Math.floor( winSize.w * .9 );
+  const svgH = Math.floor( winSize.h * .5 );
+  const asp  = ( winSize.w / winSize.h ).toFixed(2);
+  const padding = 0;  // px
+  const border  = 10; // px
+  const grp = getResponsiveGroup(winSize.w);
 
-  const g = getResponsiveGroup(winSize.w);
+  const BPRect = props => {
+    const w = [60, 90, 120, 180, 240];
+    const c = ["red", "yellow", "pink", "green" , "blue"];
+
+    return (<rect x="1" y="1" width={w[props.g]} height={w[props.g] * 100 / 240} fill={c[props.g]}
+          strokeWidth={(props.g === grp) ? 4 : .5} />);
+  }
 
   return (
     <div className="App"
       style={{
-        width:  winSize.w - 20,
-        height: winSize.h - 20
+        width:  winSize.w - (padding + border)*2,
+        height: winSize.h - (padding + border)*2,
+        padding: padding + 'px',
+        border: `solid ${border}px darkblue`
       }}
     >
-      <h3>{winSize.w}x{winSize.h} => {g}</h3>
-      <svg width={svgW} viewBox={`0 0 242 102`}>
+      <h3>{winSize.w}x{winSize.h} ({asp}) => g:{grp}</h3>
+      <svg width={svgW} height={svgH} viewBox={`0 0 242 102`} preserveAspectRatio="none">
         <g stroke="Black">
-          <BPRect width="240" fill="blue"   isGroup={g === 4} />
-          <BPRect width="180" fill="green"  isGroup={g === 3} />
-          <BPRect width="120" fill="pink"   isGroup={g === 2} />
-          <BPRect width="90"  fill="yellow" isGroup={g === 1} />
-          <BPRect width="60"  fill="red"    isGroup={g === 0} />
+          <BPRect g={4} />
+          <BPRect g={3} />
+          <BPRect g={2} />
+          <BPRect g={1} />
+          <BPRect g={0} />
         </g>
       </svg>
+      <br />
     </div>
   );
 }
