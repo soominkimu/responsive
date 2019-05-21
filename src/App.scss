@@ -6,22 +6,27 @@ $mbp-l:  1200px;
 $mbp-xl: 1800px;
 
 @mixin media-xs { // for-phone-only {
-  @media (max-width: $mbp-s - 1px) { @content; }
+  @media only screen
+     and (max-width: $mbp-s - 1px) { @content; }
 }
 @mixin media-s { // for-tablet-portrait-up {
-  @media (min-width: $mbp-s)
+  @media only screen
+     and (min-width: $mbp-s)
      and (max-width: $mbp-m - 1px) { @content; }
 }
 @mixin media-m { // for-tablet-landscape-up {
-  @media (min-width: $mbp-m)
+  @media only screen
+     and (min-width: $mbp-m)
      and (max-width: $mbp-l - 1px) { @content; }
 }
 @mixin media-l { // for-desktop-up {
-  @media (min-width: $mbp-l)
+  @media only screen
+     and (min-width: $mbp-l)
      and (max-width: $mbp-xl - 1px) { @content; }
 }
 @mixin media-xl { // for-big-desktop-up {
-  @media (min-width: $mbp-xl) { @content; }
+  @media only screen
+     and (min-width: $mbp-xl) { @content; }
 } 
 
 $m: 4px;
@@ -36,5 +41,11 @@ $m: 4px;
   &::before {
     content: "SpacetimeQ ";
   }
+  padding: 10px;
+  border: solid 4px darkblue;
 }
 
+svg {
+  border: 1px dotted green;
+  background: white;
+}
