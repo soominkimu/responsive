@@ -103,7 +103,9 @@ function App() {
       </svg>
       <br />
       <Footer>
-        Sticky Footer {winSize.w}x{footer.height}, {footer.padding}px padding
+        <span style={{color: 'green'}}>☰</span>
+        &nbsp;&nbsp;Sticky Footer {winSize.w}x{footer.height}, {footer.padding}px padding&nbsp;&nbsp;
+        <span style={{color: 'red'}}>✘</span>
       </Footer>
     </div>
   );
