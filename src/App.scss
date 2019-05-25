@@ -1,5 +1,5 @@
 
-// Media Breakpoints
+// Media Breakpoints, CSS var does not work for @media
 $mbp-s:   600px;
 $mbp-m:   900px;
 $mbp-l:  1200px;
@@ -31,32 +31,6 @@ $mbp-xl: 1800px;
      and (min-width: $mbp-xl) { @content; }
 }
 
-/*  Failed experiment
-@mixin media-xs { // for-phone-only {
-  @media only screen
-     and ( max-width: calc(var(--bp_s) - 1px) ) { @content; }
-}
-@mixin media-s { // for-tablet-portrait-up {
-  @media only screen
-     and ( min-width: var(--bp_s) )
-     and ( max-width: calc(var(--bp_m) - 1px) ) { @content; }
-}
-@mixin media-m { // for-tablet-landscape-up {
-  @media only screen
-     and ( min-width: var(--bp_m) )
-     and ( max-width: calc(var(--bp_l) - 1px) ) { @content; }
-}
-@mixin media-l { // for-desktop-up {
-  @media only screen
-     and ( min-width: var(--bp_l) )
-     and ( max-width: calc(var(--bp_xl) - 1px) ) { @content; }
-}
-@mixin media-xl { // for-big-desktop-up {
-  @media only screen
-     and ( min-width: var(--bp_xl) ) { @content; }
-}
-*/
-
 $m: 2px;
 
 .App {
@@ -75,30 +49,4 @@ $m: 2px;
 svg {
   border: 1px dotted green;
   background: white;
-}
-
-// https://stackoverflow.com/questions/40515142/how-to-make-a-sticky-footer-in-react
-%footer-shared {
-  height: var(--ft_h);
-  padding: var(--ft_p);
-  width: 100%;
-}
-
-.footer {
-  background: purple;
-  font-size: 16px;
-  color: white;
-  //border-top: 1px solid #E7E7E7;
-  text-align: center;
-  vertical-align: middle;  // only works with line-height set to the block height
-  line-height: var(--ft_h);
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  @extend %footer-shared;
-}
-
-.phantom {
-  display: block;
-  @extend %footer-shared;
 }
