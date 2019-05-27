@@ -4,22 +4,23 @@ import { useWindowSize } from './util-ui';
 import { px, Layout } from './layout';
 
 function App() {
-  const lo = new Layout(useWindowSize(), 0, 10);  // layout object: calls custom Hook
-  lo.setFooter(40, 4);
+  const L = new Layout(useWindowSize(), 0, 10, 40, 4);  // layout object: calls custom Hook
+  const C = L.c;
 
   const svg = {
-    w: Math.floor( lo.ws.w * .8 ),
-    h: Math.floor( lo.ws.h * .4 )
+    w: Math.floor( C.ws.w * .8 ),
+    h: Math.floor( C.ws.h * .4 )
   };
-  const dv = 10;
-  const mw = 2400/dv;
+  const dv = 10;       // divide by
+  const mh = 100;      // maximum height
+  const mw = 2400/dv;  // maxium width
 
   const BPRect = ({g}) => {
-    const w = [...lo.bp.map(p => p/dv), mw];  // breakpoints / 10, spread array
-    const c = ["red", "yellow", "pink", "green" , "blue"];
+    const w   = [...C.bp.map(p => p/dv), mw];  // breakpoints / 10, spread array
+    const clr = ["red", "yellow", "pink", "green" , "blue"];
 
-    return <rect x="1" y="1" width={w[g]} height={w[g] * 100 / mw} fill={c[g]}
-                strokeWidth={(g === lo.grp) ? 4 : .5} />;
+    return <rect x="1" y="1" width={w[g]} height={Math.floor( w[g] * mh / mw )} fill={clr[g]}
+                strokeWidth={(g === C.grp) ? 4 : .5} />;
   }
 
   const lns = [];
@@ -27,22 +28,22 @@ function App() {
     lns.push(<BPRect key={i} g={i} />);
 
   return (
-    <div className="App"
-      style={ lo.getContainerStyle({ border: 'solid ' + px(lo.border) + ' darkblue' }) }
+    <L.Container className="App"
+      style={{ border: 'solid ' + px(C.border) + ' darkblue' }}  // with additional styles
     >
-      <h3>{lo.ws.w}x{lo.ws.h} ({lo.asp}) => g:[{lo.grp}]</h3>
-      <svg width={svg.w} height={svg.h} viewBox={`0 0 ${mw + 2} 102`} preserveAspectRatio="none">
+      <h3>{C.ws.w}x{C.ws.h} ({C.asp}) => g:[{C.grp}]</h3>
+      <svg width={svg.w} height={svg.h} viewBox={`0 0 ${mw + 2} ${mh + 2}`} preserveAspectRatio="none">
         <g stroke="Black">
           {lns}
         </g>
       </svg>
       <br />
-      <lo.Footer>
+      <L.Footer>
         <span style={{color: 'silver'}}>☰</span>
-        &nbsp;&nbsp;Sticky Footer {lo.ws.w}x{lo.footer.h}, {lo.footer.padding}px padding&nbsp;&nbsp;
+        &nbsp;&nbsp;Sticky Footer {C.ws.w}x{C.f_h}, {C.f_padding}px padding&nbsp;&nbsp;
         <span style={{color: 'red'}}>✘</span>
-      </lo.Footer>
-    </div>
+      </L.Footer>
+    </L.Container>
   );
 }
 

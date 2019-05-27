@@ -1,9 +1,9 @@
 
 // https://stackoverflow.com/questions/40515142/how-to-make-a-sticky-footer-in-react
 %footer-shared {
-  width:   var(--ft_w);
-  height:  var(--ft_h);
-  padding: var(--ft_p);
+  width:   var(--f_w);
+  height:  var(--f_h);
+  padding: var(--f_p);
 }
 
 .footer {
@@ -11,8 +11,8 @@
   font-size: 16px;
   color: white;
   //border-top: 1px solid #E7E7E7;
-  writing-mode: var(--ft_wm);
-  line-height:  var(--ft_lh);
+  writing-mode: var(--f_wm);
+  line-height:  var(--f_lh);
   text-align: center;
   vertical-align: middle;  // only works with line-height set to the block height
   white-space: nowrap;
