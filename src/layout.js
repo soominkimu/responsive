@@ -51,7 +51,7 @@ export class Layout {
     const ft = (this.c.f_h > 0) ? (this.c.f_h + this.c.f_padding * 2) : 0;
 
     return (
-      <div className={props.className}
+      <section className={props.className}
         style={{
         width:  this.c.ws.w - pb - (this.c.isLandscape ? ft : 0),
         height: this.c.ws.h - pb - (this.c.isLandscape ? 0 : ft),
@@ -60,12 +60,12 @@ export class Layout {
         ...props.style
       }}>
         {props.children}
-      </div>
+      </section>
     );
   }
 
   Footer = props =>
-    <div style={{ // CSS var
+    <nav style={{ // CSS var
       '--f_w' : this.c.isLandscape ? px(this.c.f_h) : '100%',  // width
       '--f_h' : this.c.isLandscape ? '100%' : px(this.c.f_h),  // height
       '--f_p' : px(this.c.f_padding),                        // padding
@@ -74,5 +74,5 @@ export class Layout {
     }}>
       <div className="phantom" />
       <div className="footer">{props.children}</div>
-    </div>;
+    </nav>;
 }
