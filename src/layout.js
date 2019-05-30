@@ -65,14 +65,23 @@ export class Layout {
   }
 
   Footer = props =>
-    <nav style={{ // CSS var
-      '--f_w' : this.c.isLandscape ? px(this.c.f_h) : '100%',  // width
-      '--f_h' : this.c.isLandscape ? '100%' : px(this.c.f_h),  // height
-      '--f_p' : px(this.c.f_padding),                        // padding
-      '--f_wm': this.c.isLandscape ? 'vertical-lr' : 'horizontal-tb', // write-mode
-      '--f_lh': px(this.c.f_h)  // line-height
+    <nav className="footer" style={{ // CSS var
+      width       : this.c.isLandscape ? px(this.c.f_h) : '100%',  // width
+      height      : this.c.isLandscape ? '100%' : px(this.c.f_h),  // height
+      padding     : px(this.c.f_padding),                          // padding
+      writingMode : this.c.isLandscape ? 'vertical-lr' : 'horizontal-tb', // write-mode
+      '--f_h'     : px(this.c.f_h),
+      '--f_fh'    : px((this.c.f_h > 40) ? 40 : this.c.f_h )
     }}>
-      <div className="phantom" />
-      <div className="footer">{props.children}</div>
+      {props.children}
     </nav>;
+}
+
+// Emoji Button
+export const EmBtn = props => {
+  const {em, ...others} = props;
+  return ( <button className="em-b" {...others}>
+      <span role="img" aria-label={props.children}>{em}</span>
+    </button>
+  );
 }

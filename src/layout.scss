@@ -1,28 +1,42 @@
 
 // https://stackoverflow.com/questions/40515142/how-to-make-a-sticky-footer-in-react
-%footer-shared {
-  width:   var(--f_w);
-  height:  var(--f_h);
-  padding: var(--f_p);
-}
 
-.footer {
+nav.footer {
+  line-height: var(--f_h);
+  color: white;
   background: purple;
   font-size: 16px;
-  color: white;
   //border-top: 1px solid #E7E7E7;
-  writing-mode: var(--f_wm);
-  line-height:  var(--f_lh);
-  text-align: center;
   vertical-align: middle;  // only works with line-height set to the block height
   white-space: nowrap;
   position: fixed;
   left: 0;
   bottom: 0;
-  @extend %footer-shared;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;  // space-around
+  align-items: center;
 }
 
-.phantom {
-  display: block;
-  @extend %footer-shared;
+.em-b {  // emoji button
+  line-height: var(--f_fh);
+  color: white;
+  font-size: var(--f_fh); //$f-font-size;
+  height: var(--f_fh);  // set width and height enough so that not wiggle when emoji changed
+  width:  var(--f_fh);
+  text-align: center;
+  background: none;
+  padding: 0;
+  border: none; //1px solid #0ff;
+  border-radius: 3px;
+  &:enabled:hover {
+    background: #0ff;
+    box-shadow: 0 0 8px 6px #0ff;  // offset-x, -y, blur-radius, spread-radius
+  }
+  &:disabled {
+    opacity: .7;
+    &:hover {
+      background: darkgray;
+    }
+  }
 }

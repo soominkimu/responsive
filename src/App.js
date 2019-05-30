@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { useWindowSize } from './util-ui';
-import { px, Layout } from './layout';
+import { px, Layout, EmBtn } from './layout';
 
 function App() {
-  const L = new Layout(useWindowSize(), 0, 10, 40, 4);  // layout object: calls custom Hook
+  const L = new Layout(useWindowSize(), 0, 10, 80, 4);  // layout object: calls custom Hook
   const C = L.c;
+
+  const [mode, setMode] = useState(0);
+  const [hori, setHori] = useState(true);
+  const [colr, setColr] = useState(true);
+  const [emoj, setEmoj] = useState(true);
+  const [opct, setOpct] = useState(0);
+  const [back, setBack] = useState(0);
+  const [crdy, setCrdy] = useState(0);
 
   const Content = props => {
     const dv = 10;       // divide by
@@ -36,15 +44,34 @@ function App() {
     );
   }
 
+  const em = {
+    mode: ['📃','🌀',],
+    hori: ['🚥','🚦'],
+    colr: ['🎨','✨'],
+    emoj: ['🍀','🈚️'],
+    opct: ['🌕','🌖','🌗','🌘 ','🌑','🌒 ','🌓','🌔'],
+    back: ['🌌','🌃','🌆','🌇','🎆','🎇'],
+    crdy: ['🃏','🎴','🀄️']
+  };
+
   return (
     <L.Container className="App"
       style={{ border: 'solid ' + px(C.border) + ' darkblue' }}  // with additional styles
     >
       <Content />
       <L.Footer>
-        <span style={{color: 'silver'}}>☰</span>
-        &nbsp;&nbsp;Sticky Footer {C.ws.w}x{C.f_h}, {C.f_padding}px padding&nbsp;&nbsp;
-        <span style={{color: 'red'}}>✘</span>
+        <EmBtn em={em.mode[mode]} onClick={() => setMode((mode === 0) ? 1 : 0)}>Carousel</EmBtn>
+        <EmBtn em={em.hori[hori ? 0 : 1]} onClick={() => setHori(!hori)}>Horizontal</EmBtn>
+        <EmBtn em={em.colr[colr ? 0 : 1]} onClick={() => setColr(!colr)}>Color</EmBtn>
+        <EmBtn em={em.emoj[emoj ? 0 : 1]} onClick={() => setEmoj(!emoj)}>Emoji</EmBtn>
+        <EmBtn em='⬅️ ' disabled >Rotate-</EmBtn>
+        <EmBtn em='🔘'>RotateToday</EmBtn>
+        <EmBtn em='➡️ '>Rotate+</EmBtn>
+        <EmBtn em='⏩'>Rotate90</EmBtn>
+        <EmBtn em='🔃'>Tilt</EmBtn>
+        <EmBtn em={em.crdy[crdy]} onClick={() => setCrdy((crdy + 1) % em.crdy.length)}>CardY</EmBtn>
+        <EmBtn em={em.opct[opct]} onClick={() => setOpct((opct + 1) % em.opct.length)}>Opacity</EmBtn>
+        <EmBtn em={em.back[back]} onClick={() => setBack((back + 1) % em.back.length)}>Background</EmBtn>
       </L.Footer>
     </L.Container>
   );
@@ -53,6 +80,7 @@ function App() {
 export default App;
 
 /* 
+ *🍵🍺 ✅ 😁 🍙 🍣<span role="img" ariaLabel="stop">🔴</span>
       style={{
         ...lo.getContainerStyle(),
         ...{ border: 'solid ' + px(lo.border) + ' darkblue' }
@@ -67,4 +95,11 @@ export default App;
     ];
     bps.forEach( p => document.documentElement.style.setProperty('--bp_' + p.name, p.value + 'px') );
     console.log("CSS variables set");
+ *
+ *
+        <span style={{color: 'silver'}}>☰</span>
+        &nbsp;&nbsp;Sticky Footer {C.ws.w}x{C.f_h}, {C.f_padding}px padding&nbsp;&nbsp;
+        <span style={{color: 'red'}}>✘</span>
+
+        <button><span style={{writingMode: "vertical-lr"}}>the Space</span></button>
     */
