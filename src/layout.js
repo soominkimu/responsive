@@ -71,16 +71,19 @@ export class Layout {
       padding     : px(this.c.f_padding),                          // padding
       writingMode : this.c.isLandscape ? 'vertical-lr' : 'horizontal-tb', // write-mode
       '--f_h'     : px(this.c.f_h),
-      '--f_fh'    : px((this.c.f_h > 40) ? 40 : this.c.f_h )
+      '--f_fh'    : px((this.c.f_h > 32) ? 32 : this.c.f_h )  // set maximum font size
     }}>
       {props.children}
     </nav>;
 }
 
 // Emoji Button
+// If your buttons are not to submit form data to a server, be sure to set their type attribute to `button`.
+// Otherwise they will try to submit form data and to load the (nonexistent) response, possibly destoying
+// the current state of the document.
 export const EmBtn = props => {
   const {em, ...others} = props;
-  return ( <button className="em-b" {...others}>
+  return ( <button type="button" className="em-b" {...others}>
       <span role="img" aria-label={props.children}>{em}</span>
     </button>
   );

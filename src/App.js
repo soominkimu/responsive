@@ -4,13 +4,14 @@ import { useWindowSize } from './util-ui';
 import { px, Layout, EmBtn } from './layout';
 
 function App() {
-  const L = new Layout(useWindowSize(), 0, 10, 80, 4);  // layout object: calls custom Hook
+  const L = new Layout(useWindowSize(), 0, 10, 40, 4);  // layout object: calls custom Hook
   const C = L.c;
 
   const [mode, setMode] = useState(0);
   const [hori, setHori] = useState(true);
   const [colr, setColr] = useState(true);
   const [emoj, setEmoj] = useState(true);
+  const [rota, setRota] = useState(0);
   const [opct, setOpct] = useState(0);
   const [back, setBack] = useState(0);
   const [crdy, setCrdy] = useState(0);
@@ -44,22 +45,22 @@ function App() {
     );
   }
 
-  const em = {
-    mode: ['📃','🌀',],
-    hori: ['🚥','🚦'],
-    colr: ['🎨','✨'],
-    emoj: ['🍀','🈚️'],
-    opct: ['🌕','🌖','🌗','🌘 ','🌑','🌒 ','🌓','🌔'],
-    back: ['🌌','🌃','🌆','🌇','🎆','🎇'],
-    crdy: ['🃏','🎴','🀄️']
-  };
+  const Controls = React.memo(function Controls(props) {
+    const em = {
+      mode: ['📃','🌀',],
+      hori: ['🚥','🚦'],
+      colr: ['🎨','✨'],
+      emoj: ['🍀','🈚️'],
+      rota: ['🌎','🌍','🌏'],
+      opct: ['🌕','🌖','🌗','🌘 ','🌑','🌒 ','🌓','🌔'],
+      back: ['🌌','🌃','🌆','🌇','🎆','🎇'],
+      crdy: ['🃏','🎴','🀄️']
+    };
 
-  return (
-    <L.Container className="App"
-      style={{ border: 'solid ' + px(C.border) + ' darkblue' }}  // with additional styles
-    >
-      <Content />
-      <L.Footer>
+    const togId = (i, ar) => (i + 1) % ar.length;
+
+    return (
+      <>
         <EmBtn em={em.mode[mode]} onClick={() => setMode((mode === 0) ? 1 : 0)}>Carousel</EmBtn>
         <EmBtn em={em.hori[hori ? 0 : 1]} onClick={() => setHori(!hori)}>Horizontal</EmBtn>
         <EmBtn em={em.colr[colr ? 0 : 1]} onClick={() => setColr(!colr)}>Color</EmBtn>
@@ -67,11 +68,22 @@ function App() {
         <EmBtn em='⬅️ ' disabled >Rotate-</EmBtn>
         <EmBtn em='🔘'>RotateToday</EmBtn>
         <EmBtn em='➡️ '>Rotate+</EmBtn>
-        <EmBtn em='⏩'>Rotate90</EmBtn>
+        <EmBtn em={em.rota[rota]} onClick={() => setRota(togId(rota, em.rota))}>Rotate90</EmBtn>
         <EmBtn em='🔃'>Tilt</EmBtn>
-        <EmBtn em={em.crdy[crdy]} onClick={() => setCrdy((crdy + 1) % em.crdy.length)}>CardY</EmBtn>
-        <EmBtn em={em.opct[opct]} onClick={() => setOpct((opct + 1) % em.opct.length)}>Opacity</EmBtn>
-        <EmBtn em={em.back[back]} onClick={() => setBack((back + 1) % em.back.length)}>Background</EmBtn>
+        <EmBtn em={em.crdy[crdy]} onClick={() => setCrdy(togId(crdy, em.crdy))}>CardY</EmBtn>
+        <EmBtn em={em.opct[opct]} onClick={() => setOpct(togId(opct, em.opct))}>Opacity</EmBtn>
+        <EmBtn em={em.back[back]} onClick={() => setBack(togId(back, em.back))}>Background</EmBtn>
+      </>
+    );
+  });
+
+  return (
+    <L.Container className="App"
+      style={{ border: 'solid ' + px(C.border) + ' darkblue' }}  // with additional styles
+    >
+      <Content />
+      <L.Footer>
+        <Controls />
       </L.Footer>
     </L.Container>
   );
